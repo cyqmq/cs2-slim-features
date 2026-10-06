@@ -1,0 +1,9 @@
+{
+  "name": "css-win",
+  "description": "CounterStrikeSharp 插件框架 Windows 版（CS2 / win64，带 .NET 运行时）。依赖 metamod-win。",
+  "filelist": [],
+  "config": {},
+  "platform": "win64",
+  "requires": ["metamod-win"],
+  "updated": "2026-10-07"
+}
