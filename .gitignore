@@ -1,0 +1,3 @@
+# 构建产物（预构建包只进 GitHub Release，不进 git）
+*.zip
+*.tar.gz

@@ -1,7 +1,6 @@
 # cs2-slim-features
 
 CS2 Slim 服务端的**功能组件仓库**（选配组件）。
-
 配合主仓库 [cs2-slim-replica](https://github.com/cyqmq/cs2-slim-replica) 使用，按需为精简服务端添加功能。
 
 ## 功能列表
@@ -33,7 +32,7 @@ python cs2slim.py build    --config slim.yaml
 python cs2slim.py download --platform linux --maps de_dust2 --features bots
 ```
 
-### 部署配置
+### 部署配置（source 模式）
 
 构建完成后，把 `bots/config/` 下的 cfg 文件复制到服务端：
 
@@ -43,6 +42,36 @@ cp bots/config/offline_practice.cfg  <精简树>/game/csgo/cfg/offline_practice.
 ```
 
 然后在 `server.cfg` 末尾加 `exec server_bot`，重启服务端即可。
+
+## 预构建包（prebuilt 模式）
+
+功能已发布为预构建包，可直接拉取并**自动拼装**进精简树：
+
+```bash
+# 在精简服务端工作目录执行（slim / slim-win 树根目录）
+curl -fsSL -o bots-pack.zip https://github.com/cyqmq/cs2-slim-features/releases/latest/download/bots-pack.zip
+# Linux / Windows 通用: 包内为 game/csgo/cfg/ 结构，直接解压到树根
+unzip -o bots-pack.zip -d <精简树>
+```
+
+包内结构（与 CS2 目录一致，解压即完成拼装）：
+
+```text
+game/csgo/cfg/server_bot.cfg
+game/csgo/cfg/offline_practice.cfg
+README.md
+```
+
+也可以使用主仓库一键脚本的 prebuilt 模式，自动完成拼装：
+
+```bash
+CS2_MODE=prebuilt CS2_FEATURES=bots \
+  curl -fsSL https://raw.githubusercontent.com/cyqmq/cs2-slim-replica/main/scripts/get-cs2slim.sh | bash
+```
+
+## Release
+
+- **v1.0.0**：`bots-pack.zip`（含 `game/csgo/cfg/` 结构，自动拼装）
 
 ## 组件格式
 
