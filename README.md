@@ -10,6 +10,7 @@ CS2 Slim 服务端的**功能组件仓库**（选配组件）。
 | 人机 (bots) | `bots/` | 服务端 `bot_add` 人机玩法 + 客户端离线练习配置 |
 | 插件框架 (metamod) | `metamod/` | Metamod:Source 基础插件框架（CS2 Linux），自动补 `gameinfo.gi` |
 | 插件框架 Windows (metamod-win) | `metamod-win/` | Metamod:Source 基础插件框架（CS2 Windows/win64），自动补 `gameinfo.gi` |
+| CSS Linux (css) | `css/` | CounterStrikeSharp C# 插件框架（CS2 Linux/linuxsteamrt64，带 .NET 运行时），依赖 `metamod` |
 | CSS Windows (css-win) | `css-win/` | CounterStrikeSharp C# 插件框架（CS2 Windows/win64，带 .NET 运行时），依赖 `metamod-win` |
 
 ## 使用方法
@@ -89,19 +90,27 @@ curl -fsSL https://raw.githubusercontent.com/cyqmq/cs2-slim-replica/main/scripts
 
 拼装时自动在 `game/csgo/gameinfo.gi` 的 SearchPaths 中加入 `Game csgo/addons/metamod`。详见 [`metamod/README.md`](metamod/README.md) 和 [`metamod-win/README.md`](metamod-win/README.md)。
 
-## CounterStrikeSharp 插件框架（css-win）
+## CounterStrikeSharp 插件框架（css / css-win）
 
-CSS 是 CS2 服务端最常用的 C# 插件框架，运行在 Metamod 之上（Windows 版依赖 `metamod-win`）。一键安装会自动带上依赖：
+CSS 是 CS2 服务端最常用的 C# 插件框架，运行在 Metamod 之上（Linux 版依赖 `metamod`，Windows 版依赖 `metamod-win`）。一键安装会自动带上依赖：
+
+```bash
+# Linux
+export CS2_MODE=prebuilt CS2_FEATURES=metamod,css
+curl -fsSL https://raw.githubusercontent.com/cyqmq/cs2-slim-replica/main/scripts/get-cs2slim.sh | bash
+```
 
 ```powershell
+# Windows
 $env:CS2_MODE = "prebuilt"; $env:CS2_FEATURES = "metamod-win,css-win"
 irm https://raw.githubusercontent.com/cyqmq/cs2-slim-replica/main/scripts/get-cs2slim.ps1 | iex
 ```
 
-安装后把插件 dll 放入 `game/csgo/addons/counterstrikesharp/plugins/`，重启服务端即可。详见 [`css-win/README.md`](css-win/README.md)。
+安装后把插件 dll 放入 `game/csgo/addons/counterstrikesharp/plugins/`，重启服务端即可。详见 [`css/README.md`](css/README.md) 和 [`css-win/README.md`](css-win/README.md)。
 
 ## Release
 
+- **v1.4.0**：`css-pack.zip`（CounterStrikeSharp 1.0.376，linuxsteamrt64，带 .NET 运行时）
 - **v1.3.0**：`css-pack-win.zip`（CounterStrikeSharp 1.0.376，win64，带 .NET 运行时）
 - **v1.2.0**：`metamod-pack-win.zip`（Metamod:Source 2.0.0-git1473，win64，Windows 版插件框架）
 - **v1.1.0**：`metamod-pack.zip`（Metamod:Source 2.0.0-git1473，linuxsteamrt64，Linux 版插件框架）

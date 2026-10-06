@@ -1,0 +1,9 @@
+{
+  "name": "css",
+  "description": "CounterStrikeSharp 插件框架 Linux 版（CS2 / linuxsteamrt64，带 .NET 运行时）。依赖 metamod。",
+  "filelist": [],
+  "config": {},
+  "platform": "linux",
+  "requires": ["metamod"],
+  "updated": "2026-10-07"
+}
