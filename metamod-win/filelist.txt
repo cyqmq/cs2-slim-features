@@ -1,0 +1,2 @@
+# Metamod:Source Windows 版功能组件
+# 不依赖额外 depot 文件（纯服务端插件框架二进制 + gameinfo.gi 补丁），因此 filelist 为空。

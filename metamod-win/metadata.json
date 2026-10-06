@@ -1,0 +1,9 @@
+{
+  "name": "metamod-win",
+  "description": "Metamod:Source 基础插件框架 Windows 版（CS2 / win64）。安装后可运行 meta 命令并加载其他插件。",
+  "filelist": [],
+  "config": {},
+  "platform": "win64",
+  "requires": [],
+  "updated": "2026-10-07"
+}
