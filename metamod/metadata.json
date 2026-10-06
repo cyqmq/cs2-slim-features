@@ -1,0 +1,9 @@
+{
+  "name": "metamod",
+  "description": "Metamod:Source 基础插件框架（CS2 / linuxsteamrt64）。安装后可运行 meta 命令并加载其他插件。",
+  "filelist": [],
+  "config": {},
+  "platform": "linux",
+  "requires": [],
+  "updated": "2026-10-07"
+}

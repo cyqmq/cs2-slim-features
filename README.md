@@ -8,6 +8,7 @@ CS2 Slim 服务端的**功能组件仓库**（选配组件）。
 | 功能 | 目录 | 说明 |
 |------|------|------|
 | 人机 (bots) | `bots/` | 服务端 `bot_add` 人机玩法 + 客户端离线练习配置 |
+| 插件框架 (metamod) | `metamod/` | Metamod:Source 基础插件框架（CS2 Linux），自动补 `gameinfo.gi` |
 
 ## 使用方法
 
@@ -70,8 +71,22 @@ export CS2_MODE=prebuilt CS2_FEATURES=bots
 curl -fsSL https://raw.githubusercontent.com/cyqmq/cs2-slim-replica/main/scripts/get-cs2slim.sh | bash
 ```
 
+## Metamod:Source 插件框架（metamod）
+
+CS2 基础插件加载框架（linuxsteamrt64）。安装后控制台可用 `meta version` / `meta list`，并可在 `game/csgo/addons/metamod/metaplugins.ini` 里加载其他插件（如 CounterStrikeSharp）。
+
+prebuilt 模式自动完成：
+
+```bash
+export CS2_MODE=prebuilt CS2_FEATURES=metamod
+curl -fsSL https://raw.githubusercontent.com/cyqmq/cs2-slim-replica/main/scripts/get-cs2slim.sh | bash
+```
+
+拼装时自动在 `game/csgo/gameinfo.gi` 的 SearchPaths 中加入 `Game csgo/addons/metamod`。详见 [`metamod/README.md`](metamod/README.md)。
+
 ## Release
 
+- **v1.1.0**：`metamod-pack.zip`（Metamod:Source 2.0.0-git1473，linuxsteamrt64，含 `game/csgo/addons/` 结构，自动拼装 + gameinfo.gi 补丁）
 - **v1.0.0**：`bots-pack.zip`（含 `game/csgo/cfg/` 结构，自动拼装）
 
 ## 组件格式
