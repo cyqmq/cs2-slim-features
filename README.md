@@ -65,8 +65,9 @@ README.md
 也可以使用主仓库一键脚本的 prebuilt 模式，自动完成拼装：
 
 ```bash
-CS2_MODE=prebuilt CS2_FEATURES=bots \
-  curl -fsSL https://raw.githubusercontent.com/cyqmq/cs2-slim-replica/main/scripts/get-cs2slim.sh | bash
+# 一键脚本（Linux，先 export 再 curl|bash）
+export CS2_MODE=prebuilt CS2_FEATURES=bots
+curl -fsSL https://raw.githubusercontent.com/cyqmq/cs2-slim-replica/main/scripts/get-cs2slim.sh | bash
 ```
 
 ## Release
