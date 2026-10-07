@@ -52,16 +52,19 @@ Windows 用 `cs2lm.bat` 代替 `./cs2lm`。更多命令见 `tools/cs2lm/README.m
 - **端口**：优先级 `SERVER_PORT`（面板注入）> `CS2_PORT`（用户变量）> 默认 `27015`。CS2 UDP 与管理 Web TCP 共用该端口。
 - **Token**：
   - 设置 `CS2LM_WEB_TOKEN` 环境变量则使用它；
-  - 否则启动时随机生成 16 位十六进制，写入服务器根目录 `web_token.txt`（权限 600）。
+  - **无论是否设置，token 都会写入服务器根目录 `web_token.txt`**（未设置时随机生成 16 位十六进制，权限 600）。
 - **访问**：`http://<服务器IP>:<端口>/?token=<TOKEN>`
+- **运行中查看 token**：CS2 控制台手动执行 `exec cs2slim_token.cfg`（启动时已生成在 `game/csgo/cfg/cs2slim_token.cfg`，不自动加入启动参数）。
 - **进程管理**：PID 写入 `web.pid`；重启时自动清理旧进程；日志在 `web.log`（Windows 另存 `web.err.log`）；启动失败会在控制台打印警告。
+
+**一次性启动菜单**：三个启动脚本均内置一次性交互菜单（首次交互启动显示；选项：`1` 完整启动 / `2` 只启动 Web / `3` 只启动 CS2 / `4` 查看 token / `5` 停止 Web / `6` 退出；15 秒无输入默认选 `1`）。选择后 CS2 前台运行、日志正常显示，菜单不会反复出现。想再次打开菜单：`bash start_server.sh menu`（Windows `start_server.bat menu`）；面板场景可在 `start.sh` 顶部加 `export CS2LM_MENU=1` 或在面板环境变量设 `CS2LM_MENU=1`。面板自动重启建议设 `CS2LM_AUTO=1`（或启动命令加 `auto`）跳过菜单。
 
 ```bash
 # 面板/本地：设置 CS2LM_WEB=1 才启用单端口 Web（面板在环境变量里配置，默认关闭）
 export CS2_MODE=prebuilt CS2_FEATURES=metamod,css,link-manager
 curl -fsSL https://raw.githubusercontent.com/cyqmq/cs2-slim-replica/main/scripts/get-cs2slim.sh | bash
 
-# 本地 Linux：想开 Web 时加 CS2LM_WEB=1
+# 本地 Linux：想开 Web 时加 CS2LM_WEB=1（token 仍会写入 web_token.txt）
 CS2LM_WEB=1 CS2LM_WEB_TOKEN=my-secret bash start_server.sh
 
 # 本地 Windows：设置环境变量后运行 start_server.bat
