@@ -49,6 +49,7 @@ Windows 用 `cs2lm.bat` 代替 `./cs2lm`。更多命令见 `tools/cs2lm/README.m
 - **面板（简幻欢等）**：设置环境变量 `CS2LM_WEB=1` 才会启动 Web，端口 = `SERVER_PORT`（CS2 同端口）。
 - **本地 Linux**：`CS2LM_WEB=1 bash start_server.sh`。
 - **本地 Windows**：在环境变量中配置 `CS2LM_WEB=1`，`start_server.bat` 自动启用（需 `cs2lm.bat` 位于服务器根目录）。
+- **端口**：优先级 `SERVER_PORT`（面板注入）> `CS2_PORT`（用户变量）> 默认 `27015`。CS2 UDP 与管理 Web TCP 共用该端口。
 - **Token**：
   - 设置 `CS2LM_WEB_TOKEN` 环境变量则使用它；
   - 否则启动时随机生成 16 位十六进制，写入服务器根目录 `web_token.txt`（权限 600）。
