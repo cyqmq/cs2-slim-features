@@ -40,6 +40,29 @@ cd <服务器根目录>   # 含 game/ 的目录
 
 Windows 用 `cs2lm.bat` 代替 `./cs2lm`。更多命令见 `tools/cs2lm/README.md`。
 
+## 简幻欢等面板：单端口双服务（UDP CS2 + TCP 管理 Web）
+
+简幻欢只分配一个随机端口（`SERVER_PORT`）。CS2 走 **UDP**，cs2lm 的 Web 管理走 **TCP**——两个协议在同一端口号上互不冲突，已实测可行。
+
+`start_panel.sh` / `start_server.sh` 已内置该逻辑（需已安装本功能）：
+
+- **面板**：检测到 `cs2lm` 存在即自动启动 Web，端口 = `SERVER_PORT`（CS2 同端口）。
+- **本地**：设置 `CS2LM_WEB=1` 才会启动 Web。
+- **Token**：
+  - 设置 `CS2LM_WEB_TOKEN` 环境变量则使用它；
+  - 否则启动时随机生成 16 位十六进制，写入服务器根目录 `web_token.txt`（权限 600）。
+- **访问**：`http://<服务器IP>:<端口>/?token=<TOKEN>`
+- **进程管理**：PID 写入 `web.pid`；重启时自动清理旧进程；日志在 `web.log`；启动失败会在控制台打印警告。
+
+```bash
+# 面板场景（简幻欢等）：装好 link-manager 后无需额外操作，Web 随服务端自动启动
+export CS2_MODE=prebuilt CS2_FEATURES=metamod,css,link-manager
+curl -fsSL https://raw.githubusercontent.com/cyqmq/cs2-slim-replica/main/scripts/get-cs2slim.sh | bash
+
+# 本地场景：想开 Web 时加 CS2LM_WEB=1
+CS2LM_WEB=1 CS2LM_WEB_TOKEN=my-secret bash start_server.sh
+```
+
 ## 包内结构
 
 ```text
