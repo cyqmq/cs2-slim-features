@@ -12,6 +12,7 @@ CS2 Slim 服务端的**功能组件仓库**（选配组件）。
 | 插件框架 Windows (metamod-win) | `metamod-win/` | Metamod:Source 基础插件框架（CS2 Windows/win64），自动补 `gameinfo.gi` |
 | CSS Linux (css) | `css/` | CounterStrikeSharp C# 插件框架（CS2 Linux/linuxsteamrt64，带 .NET 运行时），依赖 `metamod` |
 | CSS Windows (css-win) | `css-win/` | CounterStrikeSharp C# 插件框架（CS2 Windows/win64，带 .NET 运行时），依赖 `metamod-win` |
+| 插件管理 (link-manager) | `link-manager/` | cs2-link-manager（`cs2lm`）插件管理 CLI（跨平台，需 Python 3.11+），符号链接管理 CSS/Metamod 插件 |
 
 ## 使用方法
 
@@ -108,8 +109,37 @@ irm https://raw.githubusercontent.com/cyqmq/cs2-slim-replica/main/scripts/get-cs
 
 安装后把插件 dll 放入 `game/csgo/addons/counterstrikesharp/plugins/`，重启服务端即可。详见 [`css/README.md`](css/README.md) 和 [`css-win/README.md`](css-win/README.md)。
 
+## 插件管理工具（link-manager）
+
+`link-manager` 附带 **cs2-link-manager**（`cs2lm`）插件管理 CLI，用符号链接从中央仓库管理 CSS/Metamod 插件。它不安装框架本身，建议搭配 `metamod`/`css` 使用：
+
+```bash
+# Linux
+export CS2_MODE=prebuilt CS2_FEATURES=metamod,css,link-manager
+curl -fsSL https://raw.githubusercontent.com/cyqmq/cs2-slim-replica/main/scripts/get-cs2slim.sh | bash
+```
+
+```powershell
+# Windows
+$env:CS2_MODE = "prebuilt"; $env:CS2_FEATURES = "metamod-win,css-win,link-manager"
+irm https://raw.githubusercontent.com/cyqmq/cs2-slim-replica/main/scripts/get-cs2slim.ps1 | iex
+```
+
+拼装后服务器根目录出现 `cs2lm` / `cs2lm.bat` 启动器和 `tools/cs2lm/` 源码目录：
+
+```bash
+cd <服务器根目录>
+./cs2lm init --server . --repo plugins-repo
+./cs2lm add MyPlugin ./path/to/MyPlugin/
+./cs2lm install MyPlugin
+./cs2lm doctor
+```
+
+需要宿主机 **Python 3.11+**。详见 [`link-manager/README.md`](link-manager/README.md)。
+
 ## Release
 
+- **v1.5.0**：`link-manager-pack.zip`（cs2-link-manager 插件管理 CLI，跨平台启动器 + 源码）
 - **v1.4.0**：`css-pack.zip`（CounterStrikeSharp 1.0.376，linuxsteamrt64，带 .NET 运行时）
 - **v1.3.0**：`css-pack-win.zip`（CounterStrikeSharp 1.0.376，win64，带 .NET 运行时）
 - **v1.2.0**：`metamod-pack-win.zip`（Metamod:Source 2.0.0-git1473，win64，Windows 版插件框架）

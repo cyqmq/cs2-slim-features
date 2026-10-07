@@ -1,0 +1,3 @@
+# cs2-link-manager 插件管理工具功能组件
+# 源码由 build_pack.py 从 GitHub main 分支下载打包，不提交 git。
+# 运行需要宿主机 Python 3.11+。

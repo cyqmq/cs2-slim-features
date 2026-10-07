@@ -1,0 +1,9 @@
+{
+  "name": "link-manager",
+  "description": "cs2-link-manager 插件管理 CLI（跨平台，Python 3.11+）。用符号链接从中央仓库管理 CSS/Metamod 插件，支持 profile 切换、反向导入、Web UI。",
+  "filelist": [],
+  "config": {},
+  "platform": "any",
+  "requires": [],
+  "updated": "2026-10-07"
+}
