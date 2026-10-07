@@ -44,23 +44,29 @@ Windows 用 `cs2lm.bat` 代替 `./cs2lm`。更多命令见 `tools/cs2lm/README.m
 
 简幻欢只分配一个随机端口（`SERVER_PORT`）。CS2 走 **UDP**，cs2lm 的 Web 管理走 **TCP**——两个协议在同一端口号上互不冲突，已实测可行。
 
-`start_panel.sh` / `start_server.sh` 已内置该逻辑（需已安装本功能）：
+`start_panel.sh` / `start_server.sh` / Windows `start_server.bat` 已内置该逻辑（需已安装本功能；**可选配置，默认不启动 Web**）：
 
-- **面板**：检测到 `cs2lm` 存在即自动启动 Web，端口 = `SERVER_PORT`（CS2 同端口）。
-- **本地**：设置 `CS2LM_WEB=1` 才会启动 Web。
+- **面板（简幻欢等）**：设置环境变量 `CS2LM_WEB=1` 才会启动 Web，端口 = `SERVER_PORT`（CS2 同端口）。
+- **本地 Linux**：`CS2LM_WEB=1 bash start_server.sh`。
+- **本地 Windows**：在环境变量中配置 `CS2LM_WEB=1`，`start_server.bat` 自动启用（需 `cs2lm.bat` 位于服务器根目录）。
 - **Token**：
   - 设置 `CS2LM_WEB_TOKEN` 环境变量则使用它；
   - 否则启动时随机生成 16 位十六进制，写入服务器根目录 `web_token.txt`（权限 600）。
 - **访问**：`http://<服务器IP>:<端口>/?token=<TOKEN>`
-- **进程管理**：PID 写入 `web.pid`；重启时自动清理旧进程；日志在 `web.log`；启动失败会在控制台打印警告。
+- **进程管理**：PID 写入 `web.pid`；重启时自动清理旧进程；日志在 `web.log`（Windows 另存 `web.err.log`）；启动失败会在控制台打印警告。
 
 ```bash
-# 面板场景（简幻欢等）：装好 link-manager 后无需额外操作，Web 随服务端自动启动
+# 面板/本地：设置 CS2LM_WEB=1 才启用单端口 Web（面板在环境变量里配置，默认关闭）
 export CS2_MODE=prebuilt CS2_FEATURES=metamod,css,link-manager
 curl -fsSL https://raw.githubusercontent.com/cyqmq/cs2-slim-replica/main/scripts/get-cs2slim.sh | bash
 
-# 本地场景：想开 Web 时加 CS2LM_WEB=1
+# 本地 Linux：想开 Web 时加 CS2LM_WEB=1
 CS2LM_WEB=1 CS2LM_WEB_TOKEN=my-secret bash start_server.sh
+
+# 本地 Windows：设置环境变量后运行 start_server.bat
+set CS2LM_WEB=1
+set CS2LM_WEB_TOKEN=my-secret
+start_server.bat
 ```
 
 ## 包内结构
