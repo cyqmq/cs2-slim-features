@@ -1,0 +1,9 @@
+{
+  "name": "modsharp-win",
+  "description": "ModSharp C# 插件框架 Windows 版（CS2，game/sharp 结构，需服务端安装 .NET 10 运行时与 VC++ 运行库）。独立框架，不依赖 Metamod，拼装时自动补 gameinfo.gi。",
+  "filelist": [],
+  "config": {},
+  "platform": "windows",
+  "requires": [],
+  "updated": "2026-10-09"
+}

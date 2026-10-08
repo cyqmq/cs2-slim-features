@@ -1,0 +1,9 @@
+{
+  "name": "swiftly-win",
+  "description": "SwiftlyS2 插件框架 Windows 版（CS2 / win64，带 .NET 运行时）。独立框架，不依赖 Metamod，拼装时自动补 gameinfo.gi。",
+  "filelist": [],
+  "config": {},
+  "platform": "windows",
+  "requires": [],
+  "updated": "2026-10-09"
+}

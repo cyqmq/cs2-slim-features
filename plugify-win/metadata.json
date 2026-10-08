@@ -1,0 +1,9 @@
+{
+  "name": "plugify-win",
+  "description": "Plugify 插件框架 Windows 版（CS2 / win64，Metamod 加载器）。依赖 metamod-win，安装后通过 plugify 包管理器安装语言模块与插件。",
+  "filelist": [],
+  "config": {},
+  "platform": "windows",
+  "requires": ["metamod-win"],
+  "updated": "2026-10-09"
+}

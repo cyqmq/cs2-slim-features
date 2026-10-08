@@ -1,0 +1,54 @@
+#!/usr/bin/env python3
+"""构建 swiftly-pack.zip。
+
+从 SwiftlyS2 GitHub Release 下载 Linux with-runtimes 包，
+重打包为功能组件格式（game/csgo/addons/ 结构 + README.md）。
+输出到仓库根目录 swiftly-pack.zip（不上传 git，只上传 GitHub Release）。
+"""
+import os
+import shutil
+import tempfile
+import urllib.request
+import zipfile
+
+VERSION = "1.4.13"
+BASE_URL = (
+    f"https://github.com/swiftly-solution/swiftlys2/releases/download/"
+    f"v{VERSION}/swiftlys2-linux-v{VERSION}-with-runtimes.zip"
+)
+HERE = os.path.dirname(os.path.abspath(__file__))
+OUT_ZIP = os.path.normpath(os.path.join(HERE, "..", "swiftly-pack.zip"))
+
+
+def main():
+    tmp = tempfile.mkdtemp(prefix="swiftly-linux-build-")
+    try:
+        src_zip = os.path.join(tmp, "swiftly.zip")
+        print("下载 SwiftlyS2 Linux 包:", BASE_URL)
+        urllib.request.urlretrieve(BASE_URL, src_zip)
+        print("解压 ...")
+        with zipfile.ZipFile(src_zip) as z:
+            z.extractall(tmp)
+
+        # 解压后根目录形如 swiftlys2-linux-v<ver>-with-runtimes/addons/
+        roots = [
+            d for d in os.listdir(tmp) if os.path.isdir(os.path.join(tmp, d))
+        ]
+        src_addons = os.path.join(tmp, roots[0], "addons")
+
+        if os.path.exists(OUT_ZIP):
+            os.remove(OUT_ZIP)
+        with zipfile.ZipFile(OUT_ZIP, "w", zipfile.ZIP_DEFLATED) as z:
+            z.write(os.path.join(HERE, "README.md"), "README.md")
+            for dp, _, fs in os.walk(src_addons):
+                for fn in fs:
+                    full = os.path.join(dp, fn)
+                    rel = os.path.relpath(full, src_addons)
+                    z.write(full, os.path.join("game", "csgo", "addons", rel))
+        print("已生成: %s (%.1f MB)" % (OUT_ZIP, os.path.getsize(OUT_ZIP) / 1024 / 1024))
+    finally:
+        shutil.rmtree(tmp, ignore_errors=True)
+
+
+if __name__ == "__main__":
+    main()

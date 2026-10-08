@@ -1,0 +1,4 @@
+# ModSharp Windows 版功能组件
+# 二进制由 build_pack.py 从官方 Release 下载重打包（game/sharp 结构），不提交 git。
+# 独立框架，不依赖 Metamod；拼装时由 cs2slim.py 自动在 gameinfo.gi 添加 Game sharp。
+# 注意：包内不自带 .NET 运行时，需服务端预装 .NET 10 与 Visual C++ Redistributable。

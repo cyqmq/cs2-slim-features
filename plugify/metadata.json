@@ -1,0 +1,9 @@
+{
+  "name": "plugify",
+  "description": "Plugify 插件框架 Linux 版（CS2 / linuxsteamrt64，Metamod 加载器）。依赖 metamod，安装后通过 plugify 包管理器安装语言模块与插件。",
+  "filelist": [],
+  "config": {},
+  "platform": "linux",
+  "requires": ["metamod"],
+  "updated": "2026-10-09"
+}
