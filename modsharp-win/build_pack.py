@@ -11,10 +11,12 @@ import tempfile
 import urllib.request
 import zipfile
 
-VERSION = "git-180"
+VERSION = "git-187"
+# 上游资产名为 ModSharp-git187-windows.zip（git 后无连字符）
+ASSET_VERSION = VERSION.replace("-", "")
 BASE_URL = (
     f"https://github.com/Kxnrl/modsharp-public/releases/download/"
-    f"{VERSION}/ModSharp-{VERSION}-windows.zip"
+    f"{VERSION}/ModSharp-{ASSET_VERSION}-windows.zip"
 )
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT_ZIP = os.path.normpath(os.path.join(HERE, "..", "modsharp-pack-win.zip"))

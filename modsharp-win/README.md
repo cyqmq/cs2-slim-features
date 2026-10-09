@@ -1,6 +1,6 @@
 # ModSharp C# 插件框架 Windows 版（CS2 精简服务端功能包）
 
-为 **Windows** 版 CS2 精简服务端安装 **ModSharp**（git-180）。ModSharp 是一个现代化的 C# 插件框架，已服务超 400 万玩家，支持模块化插件开发。
+为 **Windows** 版 CS2 精简服务端安装 **ModSharp**（git-187）。ModSharp 是一个现代化的 C# 插件框架，已服务超 400 万玩家，支持模块化插件开发。
 
 ## 特点
 
