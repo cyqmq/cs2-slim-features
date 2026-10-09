@@ -8,12 +8,24 @@
 import os
 import shutil
 import tempfile
+import time
 import urllib.request
 import zipfile
 
 SOURCE_URL = "https://github.com/cyqmq/cs2-link-manager/archive/refs/heads/main.zip"
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT_ZIP = os.path.normpath(os.path.join(HERE, "..", "link-manager-pack.zip"))
+
+
+def _add_file(z, src, arc, mode=0o644):
+    """写文件到 zip 并显式记录 Unix 权限位（zipfile.write 在 Windows 上会丢失执行位）。"""
+    with open(src, "rb") as f:
+        data = f.read()
+    info = zipfile.ZipInfo(arc)
+    info.date_time = time.gmtime(os.path.getmtime(src))[:6]
+    info.compress_type = zipfile.ZIP_DEFLATED
+    info.external_attr = (mode & 0xFFFF) << 16
+    z.writestr(info, data)
 
 
 def main():
@@ -32,9 +44,9 @@ def main():
         if os.path.exists(OUT_ZIP):
             os.remove(OUT_ZIP)
         with zipfile.ZipFile(OUT_ZIP, "w", zipfile.ZIP_DEFLATED) as z:
-            z.write(os.path.join(HERE, "cs2lm"), "cs2lm")
-            z.write(os.path.join(HERE, "cs2lm.bat"), "cs2lm.bat")
-            z.write(os.path.join(HERE, "README.md"), "README.md")
+            _add_file(z, os.path.join(HERE, "cs2lm"), "cs2lm", 0o755)
+            _add_file(z, os.path.join(HERE, "cs2lm.bat"), "cs2lm.bat", 0o755)
+            _add_file(z, os.path.join(HERE, "README.md"), "README.md", 0o644)
             for item in ("src", "pyproject.toml", "README.md", "CHANGELOG.md"):
                 fp = os.path.join(src_root, item)
                 if not os.path.exists(fp):
